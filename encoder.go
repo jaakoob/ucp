@@ -112,29 +112,17 @@ func buildHexMsg(messageType string, message string) string {
 	return fmt.Sprintf("%04X", string(charset.EncodeUcs2(message)))
 }
 
-// maskSender formats the sender mask to a hex string
-func maskSender(sender string) string {
-	encodedSender := charset.Pack7Bit(charset.Encode7Bit(sender))
-	encodedSenderSize := len(encodedSender) * 2
-	senderByteSlice := make([]byte, 0)
-	senderByteSlice = append(senderByteSlice, []byte{byte(encodedSenderSize)}...)
-	senderByteSlice = append(senderByteSlice, encodedSender...)
-	encodedHexSender := fmt.Sprintf("%02X", string(senderByteSlice))
-	return encodedHexSender
-}
-
 // encodeMessage builds a submit sm packet
 func encodeMessage(transRefNum []byte, sender, receiver, message, messageType, billingID string,
 	referenceNum, msgPartNum, totalMsgParts int) []byte {
 
-	encodedHexSender := maskSender(sender)
 	encodedHexMessage := buildHexMsg(messageType, message)
 	numBits := strconv.Itoa(len(encodedHexMessage) * 4)
 	xserData := buildXser(billingID, messageType, referenceNum, totalMsgParts, msgPartNum)
 
 	s := submit{
 		AdC:  []byte(receiver),
-		OAdC: []byte(encodedHexSender),
+		OAdC: []byte(sender),
 		NRq:  []byte(nAdCUsed),
 		NT:   []byte(notificationTypeDN),
 		MT:   []byte(messageType),
