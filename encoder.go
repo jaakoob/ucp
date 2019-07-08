@@ -129,7 +129,7 @@ func encodeMessage(transRefNum []byte, sender, receiver, message, messageType, b
 		NB:   []byte(numBits),
 		Msg:  []byte(encodedHexMessage),
 		MCLs: []byte(messageClass),
-		OTOA: []byte(oAdCAlphaNum),
+		OTOA: []byte(""),
 		Xser: []byte(xserData),
 	}
 
