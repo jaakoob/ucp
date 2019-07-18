@@ -2,7 +2,7 @@
 
 ## ucp
 
-`ucp` is a pure [Go](https://golang.org) implementation of the [UCP](https://wiki.wireshark.org/UCP) protocol primarily used to connect to short message service centres (SMSCs),  in order to send and receive short messages (SMS).
+`ucp` is a pure [Go](https://golang.org) implementation of the [UCP](https://wiki.wireshark.org/UCP) protocol primarily used to connect to short message service centres (SMSCs),  in order to send and receive short messages (SMS). This fork is adapted to work with the Vodafone SMSCs.
 
 #### setup
 - go 1.11
