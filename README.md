@@ -10,7 +10,7 @@
 
 #### installation
 ```
-go get github.com/go-gsm/ucp
+go get github.com/jaakoob/ucp
 ```
 
 #### usage
