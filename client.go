@@ -121,9 +121,10 @@ func (c *Client) Connect() error {
 	}
 	retries := 0
 	var resp = respLoop
-	for (retries == 0 && err == nil) || (err != nil && retries < loginDeliveryNotificationRetries) {
-		err = parseSessionResp(resp)
-		if err == nil {
+	var errLoop = err
+	for (retries == 0 && errLoop == nil) || (errLoop != nil && retries < loginDeliveryNotificationRetries) {
+		errLoop = parseSessionResp(resp)
+		if errLoop == nil {
 			retries = loginDeliveryNotificationRetries
 		}
 		retries += 1
@@ -133,8 +134,8 @@ func (c *Client) Connect() error {
 			return err
 		}
 	}
-	if err != nil {
-		return err
+	if errLoop != nil {
+		return errLoop
 	}
 
 	c.rateLimiter = rate.NewLimiter(rate.Limit(c.GetTps()), 1)
