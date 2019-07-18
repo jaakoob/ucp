@@ -52,8 +52,8 @@ const (
 	respMinLen                     = 4
 	maxRefNum                      = 100
 	submitSmIdIndex                = 6
-	gsmMaxSinglePart               = 160
-	gsmMaxMultiPart                = 153
+	gsmMaxSinglePart               = 140
+	gsmMaxMultiPart                = 140
 	ucs2MaxSinglePart              = 70
 	ucs2MaxMultiPart               = 64
 	refNumIndex                    = 0
