@@ -119,7 +119,11 @@ func (c *Client) Connect() error {
 	if err != nil {
 		return err
 	}
-	err = parseSessionResp(resp)
+	retries := 0
+	for (retries == 0 && err == nil) || (err != nil && retries <= loginDeliveryNotificationRetries) {
+		err = parseSessionResp(resp)
+		retries += 1
+	}
 	if err != nil {
 		return err
 	}
