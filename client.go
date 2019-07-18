@@ -115,15 +115,17 @@ func (c *Client) Connect() error {
 	if err != nil {
 		return err
 	}
-	resp, err := c.reader.ReadString(etx)
+	respLoop, err := c.reader.ReadString(etx)
 	if err != nil {
 		return err
 	}
 	retries := 0
+	var resp = respLoop
 	for (retries == 0 && err == nil) || (err != nil && retries <= loginDeliveryNotificationRetries) {
 		err = parseSessionResp(resp)
 		retries += 1
-		resp, readErr := c.reader.ReadString(etx)
+		respLoop, readErr := c.reader.ReadString(etx)
+		resp = respLoop
 		if readErr != nil {
 			return err
 		}
