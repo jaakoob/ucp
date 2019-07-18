@@ -123,6 +123,10 @@ func (c *Client) Connect() error {
 	for (retries == 0 && err == nil) || (err != nil && retries <= loginDeliveryNotificationRetries) {
 		err = parseSessionResp(resp)
 		retries += 1
+		resp, readErr := c.reader.ReadString(etx)
+		if readErr != nil {
+			return err
+		}
 	}
 	if err != nil {
 		return err
