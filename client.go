@@ -126,6 +126,7 @@ func (c *Client) Connect() error {
 		errLoop = parseSessionResp(resp)
 		if errLoop == nil {
 			retries = loginDeliveryNotificationRetries
+			break
 		}
 		retries += 1
 		respLoop, readErr := c.reader.ReadString(etx)
